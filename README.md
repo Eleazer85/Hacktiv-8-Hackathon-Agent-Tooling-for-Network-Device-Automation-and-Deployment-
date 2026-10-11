@@ -228,6 +228,35 @@ Once confirmed, use the same credentials inside the Langflow MikroTik shell flow
 
 ---
 
+## Bob MCP Server Guide
+
+Once the stack is running, you can connect [IBM Bob](https://www.ibm.com/products/bob) to Langflow as an MCP server so Bob can invoke your agent flows directly from the IDE.
+
+### Steps
+
+1. **Open Langflow** at `http://127.0.0.1:7860`.
+2. Go to **Settings** → **MCP Server**.
+3. Copy the MCP server URL shown on that page.
+4. Open **IBM Bob** in your IDE.
+5. Click the **Settings** icon (⚙️) in the Bob panel and navigate to the **MCP** tab.
+6. Click **Add MCP Server** and paste the URL you copied from Langflow.
+7. Give the server a name (e.g. `langflow`) and save.
+8. Bob connects to the server automatically — your Langflow flows now appear as callable tools inside Bob.
+
+### Usage
+
+Once connected, you can ask Bob things like:
+
+- *"Run the MikroTik shell flow and list all firewall rules."*
+- *"Use the Python Interpreter flow to check the container status on the remote host."*
+- *"Trigger the GitHub flow to list open pull requests on my repo."*
+
+Bob will route the request to the correct Langflow flow via MCP without you having to open the Langflow UI.
+
+> **Tip:** To disable the MCP server without removing it, set `"disabled": true` in `.bob/mcp.json` under the server entry.
+
+---
+
 ## License
 
 See [LICENSE](LICENSE) for details.
