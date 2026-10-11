@@ -1,6 +1,6 @@
 # Hacktiv8 Hackathon — Agent Tooling for Network Device Automation and Deployment
 
-A Langflow-based custom component that integrates **GitHub actions** via the [Composio](https://composio.dev) SDK, enabling AI agents to interact with GitHub repositories directly from a Langflow pipeline.
+A Langflow-based AI agent platform that integrates **GitHub**, **MikroTik shell**, **Alpine shell**, and **web search** actions via the [Composio](https://composio.dev) SDK, enabling AI agents to automate network device deployment and management directly from a Langflow pipeline.
 
 ---
 
@@ -9,6 +9,9 @@ A Langflow-based custom component that integrates **GitHub actions** via the [Co
 - Execute GitHub API actions through a Langflow custom component
 - Secure API key input via `SecretStrInput`
 - Allowlist-based tool filtering to prevent unauthorized GitHub actions
+- MikroTik and Alpine shell automation via SSH
+- Web search integration for agent-driven queries
+- Fully containerized with Docker Compose (Langflow + OpenSSH server)
 - Returns structured `Data` objects for downstream Langflow components
 
 ---
@@ -17,12 +20,16 @@ A Langflow-based custom component that integrates **GitHub actions** via the [Co
 
 ```
 .
-├── github_custom_component.py   # Main Langflow custom component
-├── Dockerfile                   # Container image built on langflowai/langflow
-├── Github access.json           # Composio GitHub tool config
-├── shell_MikroTik.json          # MikroTik shell tool config
-├── shell_alpine.json            # Alpine shell tool config
-├── web_search.json              # Web search tool config
+├── custom_component/
+│   └── github_custom_component.py   # Langflow custom component for GitHub via Composio
+├── langflow_flow/
+│   ├── Github access.json           # Composio GitHub agent flow
+│   ├── shell_MikroTik.json          # MikroTik shell agent flow
+│   ├── shell_alpine.json            # Alpine shell agent flow
+│   └── web_search.json              # Web search agent flow
+├── Dockerfile                       # Custom image built on langflowai/langflow
+├── docker_compose.yml               # Full stack: Langflow + OpenSSH server
+├── LICENSE
 └── README.md
 ```
 
@@ -30,32 +37,94 @@ A Langflow-based custom component that integrates **GitHub actions** via the [Co
 
 ## Requirements
 
+- Docker & Docker Compose
+
+For local development without Docker:
+
 - Python 3.10+
 - [Langflow](https://github.com/langflow-ai/langflow)
-- [Composio](https://pypi.org/project/composio/)
-- [composio-langchain](https://pypi.org/project/composio-langchain/)
 
-Install dependencies:
 ```bash
 pip install composio composio_langchain lfx-bundles requests paramiko librouteros
 ```
 
 ---
 
-## Docker Setup
+## SSH Key Setup
 
-Build and run using the provided Dockerfile:
+The OpenSSH server (`agent-shell`) uses key-based authentication only. Generate a dedicated key pair before starting the stack:
 
 ```bash
-docker build -t hackathon-agent .
-docker run -p 7860:7860 hackathon-agent
+ssh-keygen -t ed25519 -f ~/.ssh/<your_key_name> -N "" -C "langflow-agent"
 ```
+
+Replace `<your_key_name>` with whatever name you want (e.g. `my_agent_key`).
+
+This creates:
+- `~/.ssh/<your_key_name>` — private key
+- `~/.ssh/<your_key_name>.pub` — public key
+
+Then update the volume paths in `docker_compose.yml` to match your chosen key name:
+
+```yaml
+# Under langflow service:
+- ~/.ssh/<your_key_name>:/app/keys/agent_key:ro
+
+# Under openssh-server service:
+- ~/.ssh/<your_key_name>.pub:/keys/agent_key.pub:ro
+```
+
+---
+
+## Docker Setup
+
+### 1. Build the custom Langflow image
+
+```bash
+docker build -t <your_image_name> .
+```
+
+### 2. Update `docker_compose.yml`
+
+Replace the image placeholder with your built image name:
+
+```yaml
+# docker_compose.yml
+image: <your_image_name>   # was: <dockerfile_image>
+```
+
+### 3. Pull the OpenSSH server image
+
+```bash
+docker pull linuxserver/openssh-server:latest
+```
+
+### 4. Start the full stack
+
+```bash
+docker compose -f docker_compose.yml up
+```
+
+Then open **http://127.0.0.1:7860** in your browser.
+
+| Service | Container | Port |
+|---|---|---|
+| Langflow | `langflow` | `127.0.0.1:7860` |
+| OpenSSH server | `agent-shell` | internal only |
+
+> SSH access uses key-based auth only (`~/.ssh/agent_key`). Use `/app/keys/agent_key` as the key path inside the Langflow container.
 
 ---
 
 ## Usage
 
-### Component Inputs
+### Import flows
+
+1. Open Langflow at `http://127.0.0.1:7860`
+2. Go to **My Flows** → **Import**
+3. Import any flow from the `langflow_flow/` directory
+
+### GitHub Custom Component Inputs
 
 | Input | Type | Description |
 |---|---|---|
@@ -68,9 +137,64 @@ Returns a `Data` object containing the result of the GitHub API call, or an erro
 
 ---
 
-## Allowed GitHub Tools
+## MikroTik Connection Setup
 
-The component restricts execution to the following tools:
+To use the MikroTik shell agent flow, your router must be reachable over the network and configured to accept SSH connections.
+
+### 1. Requirements
+
+- A MikroTik router or device running **RouterOS**
+- Network access from the machine running this stack to the router's IP address
+
+### 2. Enable SSH on RouterOS
+
+Connect to your MikroTik via Winbox, WebFig, or its existing console, then run:
+
+```routeros
+/ip service enable ssh
+/ip service set ssh port=22
+```
+
+Confirm SSH is active:
+
+```routeros
+/ip service print
+```
+
+Look for `ssh` with status `enabled`.
+
+### 3. (Optional) Restrict SSH access by IP
+
+To allow SSH only from your host machine:
+
+```routeros
+/ip service set ssh address=<your_host_ip>/32
+```
+
+### 4. (Optional) Set a strong password or use key-based auth
+
+```routeros
+# Set password for the admin user
+/user set admin password=<your_password>
+```
+
+For key-based auth, import your public key:
+
+```routeros
+/user ssh-keys import public-key-file=<your_key_name>.pub user=admin
+```
+
+### 5. Test the connection from your host
+
+```bash
+ssh admin@<mikrotik_ip>
+```
+
+Once confirmed, use the same credentials inside the Langflow MikroTik shell flow (`shell_MikroTik.json`).
+
+---
+
+## Allowed GitHub Tools
 
 | Category | Tools |
 |---|---|

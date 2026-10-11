@@ -1,0 +1,52 @@
+services:
+  langflow:
+    #change the docker image to the newly built image from dockerfile
+    image: <dockerfile_image>
+    container_name: langflow
+    environment:
+      - LANGFLOW_AUTO_LOGIN=true
+      - DO_NOT_TRACK=true
+      - LANGFLOW_SSRF_ALLOWED_HOSTS=172.17.0.1
+      - LANGFLOW_RESTRICT_LOCAL_FILE_ACCESS=false
+      - LANGFLOW_HOST=0.0.0.0
+      - LANGFLOW_CONFIG_DIR=/app/langflow
+      - LANGFLOW_DATABASE_URL=sqlite:////app/langflow/langflow.db
+    ports:
+      - "127.0.0.1:7860:7860"
+    volumes:
+      # private key for paramiko; use /app/keys/agent_key as key_filename
+      - ~/.ssh/<your_key_name>:/app/keys/agent_key:ro
+      # persists Langflow's database/flows across recreates
+      - langflow-data:/app/langflow
+    depends_on:
+      - openssh-server
+    networks:
+      - agent-net
+    restart: unless-stopped
+
+  openssh-server:
+    image: linuxserver/openssh-server:latest
+    container_name: agent-shell
+    hostname: agent-shell
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - USER_NAME=agent
+      - PUBLIC_KEY_FILE=/keys/agent_key.pub
+      - PASSWORD_ACCESS=false
+      - SUDO_ACCESS=true
+    volumes:
+      - ./config:/config
+      - ~/.ssh/<your_key_name>.pub:/keys/agent_key.pub:ro
+
+    networks:
+      - agent-net
+    restart: unless-stopped
+
+networks:
+  agent-net:
+
+volumes:
+  langflow-data:
+    driver: local
