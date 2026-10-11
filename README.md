@@ -116,6 +116,14 @@ Then open **http://127.0.0.1:7860** in your browser.
 
 ---
 
+## Python Interpreter — Doppler Setup (Optional)
+
+The `Python Interpreter.json` flow supports fetching secrets at runtime from [Doppler](https://doppler.com). To use it, paste your **Doppler Service Token** into the `DOPPLER_SERVICE_TOKEN` input of the flow.
+
+> If you skip Doppler, provide credentials directly as Langflow Global Variables or component inputs instead.
+
+---
+
 ## Usage
 
 ### Import flows
