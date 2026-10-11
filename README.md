@@ -16,7 +16,7 @@ Send RouterOS commands to a MikroTik router over SSH from within a Langflow agen
 Run shell commands on a lightweight Alpine Linux container (`agent-shell`) over SSH. The sidecar container is provisioned alongside Langflow via Docker Compose, giving the agent a sandboxed Linux environment to execute scripts, install packages, or inspect the host network.
 
 ### Python Interpreter
-Execute raw Python scripts against remote infrastructure over SSH from within the Langflow agent. Used for AIOps tasks such as deploying services with Docker Compose, inspecting container state, reading logs, and running health checks. Supports optional [Doppler](https://doppler.com) integration for runtime secret injection — no credentials are hardcoded.
+Executes raw Python scripts against remote infrastructure over SSH directly from within the Langflow pipeline. Designed for AIOps tasks—such as deploying services via Docker Compose, inspecting container status, analyzing logs, and running network health checks. Integrates natively with Doppler for dynamic, runtime secret injection to ensure zero hardcoded credentials.
 
 ### Web Search
 Perform live web searches from within a Langflow agent flow, enabling the agent to look up documentation, error messages, or current events as part of an automated workflow.
