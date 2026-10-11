@@ -274,7 +274,6 @@
             "is_input": null,
             "is_output": null,
             "legacy": false,
-            "lf_version": "1.12.3",
             "metadata": {
               "code_hash": "e3714ffe5d15",
               "dependencies": {
@@ -590,6 +589,10 @@
           "type": "Prompt Template"
         },
         "id": "Prompt Template-8DQS9",
+        "measured": {
+          "height": 347,
+          "width": 320
+        },
         "position": {
           "x": 1135.1443531677592,
           "y": 576.4439144656451
@@ -888,6 +891,10 @@
           "type": "PythonREPLComponent"
         },
         "id": "PythonREPLComponent-SXRse",
+        "measured": {
+          "height": 305,
+          "width": 320
+        },
         "position": {
           "x": 1527.88626321426,
           "y": 467.23356605963363
@@ -1322,6 +1329,10 @@
           "type": "ChatInput"
         },
         "id": "ChatInput-EDCps",
+        "measured": {
+          "height": 52,
+          "width": 192
+        },
         "position": {
           "x": 760.118210816112,
           "y": 804.6556442803795
@@ -1676,6 +1687,10 @@
           "type": "ParserComponent"
         },
         "id": "ParserComponent-LyZ3X",
+        "measured": {
+          "height": 331,
+          "width": 320
+        },
         "position": {
           "x": 1939.0024665441924,
           "y": 441.5242566714993
@@ -2234,6 +2249,10 @@
           "type": "ConditionalRouter"
         },
         "id": "ConditionalRouter-R7CBP",
+        "measured": {
+          "height": 513,
+          "width": 320
+        },
         "position": {
           "x": 2373.558834904353,
           "y": 664.714058230447
@@ -2563,6 +2582,10 @@
           "type": "Prompt Template"
         },
         "id": "Prompt Template-0YH2F",
+        "measured": {
+          "height": 209,
+          "width": 320
+        },
         "position": {
           "x": 1954.1002079495042,
           "y": 825.0324838502519
@@ -2892,6 +2915,10 @@
           "type": "Prompt Template"
         },
         "id": "Prompt Template-43bZg",
+        "measured": {
+          "height": 209,
+          "width": 320
+        },
         "position": {
           "x": 1955.8455560170546,
           "y": 1056.7985437951252
@@ -3398,6 +3425,10 @@
           "type": "ChatOutput"
         },
         "id": "ChatOutput-C1d9Q",
+        "measured": {
+          "height": 52,
+          "width": 192
+        },
         "position": {
           "x": 2855.359401005742,
           "y": 1007.1260079838993
@@ -3904,6 +3935,10 @@
           "type": "ChatOutput"
         },
         "id": "ChatOutput-S6yA6",
+        "measured": {
+          "height": 52,
+          "width": 192
+        },
         "position": {
           "x": 2861.5894068760986,
           "y": 1179.8551602117066
@@ -4146,9 +4181,9 @@
       }
     ],
     "viewport": {
-      "x": -313.21596725347285,
-      "y": -241.65731494825195,
-      "zoom": 0.6005505304209678
+      "x": -767.054298469897,
+      "y": -177.96290380341196,
+      "zoom": 0.8237951540591818
     }
   },
   "description": "Create, Chain, Communicate.",

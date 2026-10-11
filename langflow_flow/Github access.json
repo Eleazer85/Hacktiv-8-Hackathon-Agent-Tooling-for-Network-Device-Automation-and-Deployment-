@@ -10,34 +10,6 @@
         "className": "",
         "data": {
           "sourceHandle": {
-            "dataType": "ChatInput",
-            "id": "ChatInput-yLjB8",
-            "name": "message",
-            "output_types": [
-              "Message"
-            ]
-          },
-          "targetHandle": {
-            "fieldName": "tools_choosen",
-            "id": "CustomComponent-tY7zE",
-            "inputTypes": [
-              "Message"
-            ],
-            "type": "str"
-          }
-        },
-        "id": "xy-edge__ChatInput-yLjB8{œdataTypeœ:œChatInputœ,œidœ:œChatInput-yLjB8œ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}-CustomComponent-tY7zE{œfieldNameœ:œtools_choosenœ,œidœ:œCustomComponent-tY7zEœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
-        "selected": false,
-        "source": "ChatInput-yLjB8",
-        "sourceHandle": "{œdataTypeœ:œChatInputœ,œidœ:œChatInput-yLjB8œ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}",
-        "target": "CustomComponent-tY7zE",
-        "targetHandle": "{œfieldNameœ:œtools_choosenœ,œidœ:œCustomComponent-tY7zEœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
-      },
-      {
-        "animated": false,
-        "className": "",
-        "data": {
-          "sourceHandle": {
             "dataType": "CustomComponent",
             "id": "CustomComponent-tY7zE",
             "name": "output",
@@ -64,6 +36,34 @@
         "sourceHandle": "{œdataTypeœ:œCustomComponentœ,œidœ:œCustomComponent-tY7zEœ,œnameœ:œoutputœ,œoutput_typesœ:[œJSONœ]}",
         "target": "ChatOutput-e0r8s",
         "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œChatOutput-e0r8sœ,œinputTypesœ:[œDataœ,œJSONœ,œDataFrameœ,œTableœ,œMessageœ],œtypeœ:œotherœ}"
+      },
+      {
+        "animated": false,
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "ChatInput",
+            "id": "ChatInput-yLjB8",
+            "name": "message",
+            "output_types": [
+              "Message"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "tools_choosen",
+            "id": "CustomComponent-tY7zE",
+            "inputTypes": [
+              "Message"
+            ],
+            "type": "str"
+          }
+        },
+        "id": "xy-edge__ChatInput-yLjB8{œdataTypeœ:œChatInputœ,œidœ:œChatInput-yLjB8œ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}-CustomComponent-tY7zE{œfieldNameœ:œtools_choosenœ,œidœ:œCustomComponent-tY7zEœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "selected": false,
+        "source": "ChatInput-yLjB8",
+        "sourceHandle": "{œdataTypeœ:œChatInputœ,œidœ:œChatInput-yLjB8œ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}",
+        "target": "CustomComponent-tY7zE",
+        "targetHandle": "{œfieldNameœ:œtools_choosenœ,œidœ:œCustomComponent-tY7zEœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
       }
     ],
     "nodes": [
@@ -1038,7 +1038,7 @@
             "legacy": false,
             "lf_version": "1.12.3",
             "metadata": {
-              "code_hash": "2cd19f0157b1",
+              "code_hash": "6fa3cace044e",
               "dependencies": {
                 "dependencies": [
                   {
@@ -1160,8 +1160,8 @@
           "width": 320
         },
         "position": {
-          "x": 26.91918501795824,
-          "y": 233.54344357681128
+          "x": -0.7279171827371442,
+          "y": 237.69865849919762
         },
         "type": "genericNode"
       },
@@ -1185,8 +1185,8 @@
           "width": 280
         },
         "position": {
-          "x": -373.6441365590839,
-          "y": 343.77962687826545
+          "x": -387.16759749999363,
+          "y": 358.5167976170453
         },
         "type": "noteNode",
         "width": 280
@@ -1211,7 +1211,7 @@
           "width": 280
         },
         "position": {
-          "x": 22.550766044596273,
+          "x": 11.531714885830155,
           "y": 135.97495718286137
         },
         "type": "noteNode",
@@ -1245,9 +1245,9 @@
       }
     ],
     "viewport": {
-      "x": 120.51494580074734,
-      "y": -179.61411567123207,
-      "zoom": 1.4704167140426387
+      "x": 352.3989171122359,
+      "y": -56.53349675195011,
+      "zoom": 0.90751915531716
     }
   },
   "description": "Tools to use git",

@@ -1828,7 +1828,7 @@
             ],
             "frozen": false,
             "icon": "file-text",
-            "last_updated": "2026-10-11T03:01:12.803Z",
+            "last_updated": "2026-10-11T04:35:05.516Z",
             "legacy": false,
             "lf_version": "1.12.3",
             "metadata": {
@@ -4479,7 +4479,7 @@
         "data": {
           "id": "note-NBVDN",
           "node": {
-            "description": "PUT SSH KEY HERE",
+            "description": "## PUT SSH KEY HERE",
             "display_name": "",
             "documentation": "",
             "template": {
@@ -4495,8 +4495,8 @@
           "width": 280
         },
         "position": {
-          "x": 1077.5692041227753,
-          "y": 190.1703318481989
+          "x": 1045.232231665179,
+          "y": 175.54201528863126
         },
         "type": "noteNode",
         "width": 280
@@ -4634,9 +4634,9 @@
       }
     ],
     "viewport": {
-      "x": -339.19283462436897,
-      "y": 46.21510187575123,
-      "zoom": 0.5232333755631461
+      "x": -516.5652035127803,
+      "y": 137.978831364907,
+      "zoom": 0.6128162566130417
     }
   },
   "description": "Engineered for Excellence, Built for Business.",
